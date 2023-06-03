@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "55f1180d91ba7b80e7be0096d559b857",
+    "content-hash": "804f005a1c6445f7574f964e1466868f",
     "packages": [
         {
             "name": "brick/math",
@@ -5133,6 +5133,59 @@
                 }
             ],
             "time": "2023-03-29T21:42:15+00:00"
+        },
+        {
+            "name": "tarfin-labs/zbar-php",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tarfin-labs/zbar-php.git",
+                "reference": "00899f2b3c418437408170f034007763875666f7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tarfin-labs/zbar-php/zipball/00899f2b3c418437408170f034007763875666f7",
+                "reference": "00899f2b3c418437408170f034007763875666f7",
+                "shasum": ""
+            },
+            "require": {
+                "ext-imagick": "*",
+                "php": "^7.2|^7.3|^7.4|^8.0|^8.1|^8.2",
+                "symfony/process": "^4.4|^5.0|^6.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5|^9.0||^10.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "TarfinLabs\\ZbarPhp\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Faruk Can",
+                    "email": "faruk.can@tarfin.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "zbar-php is a php package that provides an interface to the zbar bar-code reading library.",
+            "homepage": "https://github.com/tarfin-labs/zbar-php",
+            "keywords": [
+                "bar-code",
+                "qr-code",
+                "tarfin-labs",
+                "zbar-php"
+            ],
+            "support": {
+                "issues": "https://github.com/tarfin-labs/zbar-php/issues",
+                "source": "https://github.com/tarfin-labs/zbar-php/tree/1.6.0"
+            },
+            "time": "2023-05-11T12:16:18+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
