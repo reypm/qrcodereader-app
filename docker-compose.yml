@@ -63,6 +63,17 @@ services:
                 - ping
             retries: 3
             timeout: 5s
+    adminer:
+        image: adminer
+        restart: always
+        networks:
+            - sail
+        ports:
+            - "8080:8080"
+        depends_on:
+            - mysql
+        environment:
+            ADMINER_DESIGN: '${ADMINER_DESIGN:-ng9}'
 networks:
     sail:
         driver: bridge

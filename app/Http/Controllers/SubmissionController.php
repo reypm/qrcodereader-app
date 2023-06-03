@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\FileUploaded;
 use App\Http\Requests\SubmissionRequest;
+use App\Models\Document;
 use App\Models\Submission;
+use Illuminate\Contracts\Foundation\Application as ApplicationFoundation;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Foundation\Application as ApplicationFoundation;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Storage;
 
 class SubmissionController extends Controller
 {
@@ -18,7 +22,8 @@ class SubmissionController extends Controller
      */
     public function index(): View|Application|Factory|ApplicationFoundation
     {
-        $submissions = Submission::all();
+        $filePerPage = env('FILES_PER_PAGE', 15);
+        $submissions = Submission::paginate($filePerPage);
 
         return view('submission.index', [
             'submissions' => $submissions,
@@ -36,23 +41,25 @@ class SubmissionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(SubmissionRequest $request)
+    public function store(SubmissionRequest $request): Application|Redirector|RedirectResponse|ApplicationFoundation
     {
-        $files = [];
-        if ($request->file('files')){
-            foreach($request->file('files') as $file)
-            {
-                $fileName = time().rand(1,99).'.'.$file->extension();
-                $file->move(public_path('uploads'), $fileName);
-                $files[]['name'] = $fileName;
-            }
-        }
+        $uploadDir = env('FILES_UPLOAD_DIR', 'uploads');
+        $filePath = $request->file('file')->store($uploadDir);
+        Storage::setVisibility($filePath, 'public');
 
-        foreach ($files as $file) {
-            Submission::create($file);
-        }
+        $submission = Submission::create([
+            'user_id' => auth()->id()
+        ]);
 
-        return back()->with('success','You have successfully upload file.');
+        $document = Document::create([
+            'path' => $filePath,
+            'user_id' => auth()->id(),
+            'submission_id' => $submission->id
+        ]);
+
+        FileUploaded::dispatch($submission, $document);
+
+        return redirect('/submission')->with('success', 'You have successfully uploaded a file.');
     }
 
     /**
@@ -68,7 +75,7 @@ class SubmissionController extends Controller
      */
     public function edit(Submission $submission)
     {
-        //
+        $t = 0;
     }
 
     /**
@@ -84,10 +91,12 @@ class SubmissionController extends Controller
      */
     public function destroy(Submission $submission): RedirectResponse
     {
+        // softDeletes are enabled but if we can get rid of them then we should use an event that also would take care
+        // of uploaded files
+        // RemoveStoredFile::dispatch($submission);
+
         $submission->delete();
 
-        return back(204)->with([
-            'success' => __("Submission successfully deleted")
-        ]);
+        return redirect('/submission')->with('success', "Submission successfully deleted");
     }
 }

@@ -6,12 +6,11 @@ The current project has package [laravel/sail](https://packagist.org/packages/la
 
 Steps to get a working development env:
 
-1. Copy the **.env.example** file and change the value of the environment variables needed
+1. Copy the **.env.example** file and change the value of the environment variables as needed
 
 ```bash
 $ cp .env.example .env
 ```
-
 2. Install required packages
 
 ```bash

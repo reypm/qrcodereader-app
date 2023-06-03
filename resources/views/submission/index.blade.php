@@ -43,21 +43,34 @@
                                                     {{ $submission->document?->file_name }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-gray-400">
-                                                    {{ $submission->code }}
+                                                    @if(filter_var($submission->code, FILTER_VALIDATE_URL))
+                                                        <a href="{{ $submission->code }}" target="_blank" rel="noopener noreferrer">{{ $submission->code }}</a>
+                                                    @else
+                                                        {{ $submission->code }}
+                                                    @endif
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-gray-400">
                                                     {{ $submission->status->name }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-right font-medium">
-                                                    <a href="{{ route('submission.edit', $submission) }}" class="text-indigo-600 hover:text-indigo-100">Edit</a>
+                                                    <a href="{{ route('submission.edit', $submission) }}" class="text-indigo-600 hover:text-indigo-100">Show</a> |
+                                                    <a href="{{ route('submission.edit', $submission) }}" class="text-indigo-600 hover:text-indigo-100">Edit</a> |
+                                                    <form action="{{ route('submission.destroy', ['submission' => $submission]) }}" method="POST">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <button type="submit">Delete</button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach
                                         </tbody>
                                     </table>
+
                                 </div>
                             </div>
                         </div>
+
+                        {!! $submissions->render() !!}
                     </div>
                 </div>
             </div>

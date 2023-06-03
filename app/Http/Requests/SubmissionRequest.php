@@ -23,7 +23,7 @@ class SubmissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'file' => 'required|mimes:pdf,xml,png,jpeg|max:2048'
+            'file' => 'required|mimes:pdf,jpg,png,jpeg,svg,gif|max:2048'
         ];
     }
 }
