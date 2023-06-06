@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\FileUploaded;
 use App\Http\Requests\SubmissionRequest;
+use App\Http\Requests\SubmissionUpdateRequest;
 use App\Models\Document;
 use App\Models\Submission;
 use Illuminate\Contracts\Foundation\Application as ApplicationFoundation;
@@ -11,7 +12,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Storage;
 
@@ -67,7 +67,9 @@ class SubmissionController extends Controller
      */
     public function show(Submission $submission)
     {
-        //
+        return view('submission.show', [
+            'submission' => $submission,
+        ]);
     }
 
     /**
@@ -75,15 +77,19 @@ class SubmissionController extends Controller
      */
     public function edit(Submission $submission)
     {
-        $t = 0;
+        return view('submission.edit', [
+            'submission' => $submission,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Submission $submission)
+    public function update(SubmissionUpdateRequest $request, Submission $submission): RedirectResponse
     {
-        //
+        $submission->update($request->all());
+
+        return redirect()->route('submission.show', [$submission])->with('success', 'Product updated successfully');
     }
 
     /**

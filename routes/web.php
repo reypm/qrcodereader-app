@@ -19,8 +19,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/submission', [SubmissionController::class, 'index'])->name('submission.index');
     Route::post('/submission', [SubmissionController::class, 'store'])->name('submission.upload');
     Route::get('/submission/create', [SubmissionController::class, 'create'])->name('submission.create');
-    Route::get('/submission/{id}', [SubmissionController::class, 'show'])->name('submission.show');
-    Route::patch('/submission/{id}', [SubmissionController::class, 'update'])->name('submission.update');
+    Route::get('/submission/{submission}', [SubmissionController::class, 'show'])->name('submission.show');
+    Route::patch('/submission/{submission}', [SubmissionController::class, 'update'])->name('submission.update');
     Route::delete('/submission/{submission}', [SubmissionController::class, 'destroy'])->name('submission.destroy');
 });
 

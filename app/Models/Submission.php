@@ -17,7 +17,8 @@ class Submission extends Model
     // Mass assignable fields
     protected $fillable = [
         'code',
-        'user_id'
+        'user_id',
+        'status'
     ];
 
     /**
