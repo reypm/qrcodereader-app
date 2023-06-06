@@ -88,6 +88,9 @@ At this point you should be able to access the application at [http://localhost]
 ## References
 - [zbar-php](https://github.com/tarfin-labs/zbar-php)
 - [How to install zbar-tools on Ubuntu](https://installati.one/install-zbar-tools-ubuntu-20-04/)
+- [ImageMagick Security Policy](https://imagemagick.org/script/security-policy.php)
+- [PHP ImagickException: not authorized](https://stackoverflow.com/questions/37599727/php-imagickexception-not-authorized)
+- [ImageMagick not authorized to convert PDF to an image](https://stackoverflow.com/questions/52861946/imagemagick-not-authorized-to-convert-pdf-to-an-image)
 
 ## License
 
